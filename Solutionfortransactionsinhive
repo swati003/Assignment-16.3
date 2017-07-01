@@ -1,0 +1,37 @@
+
+
+acadgild@> sudo service mysqld start 
+
+acadgild> hive  //starting hive
+
+// as shown in the blog i have set all the properties for  hive transactions
+
+
+hive>set hive.support.concurrency = true;
+ 
+hive>set hive.enforce.bucketing = true;
+ 
+hive>set hive.exec.dynamic.partition.mode = nonstrict;
+ 
+hive>set hive.txn.manager = org.apache.hadoop.hive.ql.lockmgr.DbTxnManager;
+ 
+hive>set hive.compactor.initiator.on = true;
+ 
+hive>set hive.compactor.worker.threads = a positive number on at least one instance of the Thrift metastore service;
+
+
+
+// created a hive table with transactions enabled
+create table in hive
+
+-------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE employee_table(emp_id int,emp_name string) clustered by (clg_id) into 5 buckets stored as  ORC TBLPROPERTIES("transactional"="true");
+
+
+//insert data into table
+
+
+
+1
+INSERT INTO table college values(1,'arjun'),(2,'mahi'),(3,'chandu'),(4,'kiran'));
